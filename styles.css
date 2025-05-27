@@ -1,0 +1,582 @@
+/* Réinitialisation et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F8F9FA;
+    color: #2D3436;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #1A202C;
+    color: #E2E8F0;
+}
+
+/* En-tête */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+body.dark-mode .header {
+    background: linear-gradient(135deg, rgba(30,30,30,0.8), rgba(30,30,30,0.6));
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.2);
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Formulaire */
+.weather-form {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .weather-form {
+    background: rgba(30,30,30,0.7);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+body.dark-mode input[type="text"] {
+    background: #2D3748;
+    border-color: #4A5568;
+    color: #E2E8F0;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #1E3A8A;
+}
+
+body.dark-mode input[type="text"]:focus {
+    border-color: #4C6B61;
+}
+
+/* Style pour le sélecteur à cadran */
+.dial-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(225,231,255,0.7), rgba(255,255,255,0.5));
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease;
+}
+
+body.dark-mode .dial-selector {
+    background: linear-gradient(180deg, rgba(30,40,50,0.7), rgba(30,30,30,0.5));
+}
+
+.dial-selector:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.dial {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(225,231,235,0.7));
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+    margin: 1rem 0;
+}
+
+body.dark-mode .dial {
+    background: radial-gradient(circle, rgba(50,50,50,0.9), rgba(30,30,40,0.7));
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.dial-number {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2D3436;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+body.dark-mode .dial-number {
+    color: #E2E8F0;
+}
+
+.dial-number:hover {
+    background: #1E3A8A;
+    color: #FFFFFF;
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(30,64,175,0.5);
+}
+
+body.dark-mode .dial-number:hover {
+    background: #4C6B61;
+    box-shadow: 0 0 15px rgba(76,107,97,0.5);
+}
+
+.dial-number.selected {
+    background: #1E3A8A;
+    color: #FFFFFF;
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(30,64,175,0.7);
+    animation: dialGlow 1.5s infinite;
+}
+
+body.dark-mode .dial-number.selected {
+    background: #4C6B61;
+    box-shadow: 0 0 20px rgba(76,107,97,0.7);
+}
+
+/* Positionnement des numéros autour du cercle */
+.dial-number:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translate(0, -80px) rotate(0deg); }
+.dial-number:nth-child(2) { transform: translate(-50%, -50%) rotate(51.43deg) translate(0, -80px) rotate(-51.43deg); }
+.dial-number:nth-child(3) { transform: translate(-50%, -50%) rotate(102.86deg) translate(0, -80px) rotate(-102.86deg); }
+.dial-number:nth-child(4) { transform: translate(-50%, -50%) rotate(154.29deg) translate(0, -80px) rotate(-154.29deg); }
+.dial-number:nth-child(5) { transform: translate(-50%, -50%) rotate(205.72deg) translate(0, -80px) rotate(-205.72deg); }
+.dial-number:nth-child(6) { transform: translate(-50%, -50%) rotate(257.15deg) translate(0, -80px) rotate(-257.15deg); }
+.dial-number:nth-child(7) { transform: translate(-50%, -50%) rotate(308.58deg) translate(0, -80px) rotate(-308.58deg); }
+
+.dial-knob {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    background: linear-gradient(135deg, #1E3A8A, #2B6CB0);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(30,64,175,0.5);
+    cursor: grab;
+    transition: transform 0.5s ease;
+}
+
+body.dark-mode .dial-knob {
+    background: linear-gradient(135deg, #4C6B61, #6B8A7A);
+    box-shadow: 0 0 15px rgba(76,107,97,0.5);
+}
+
+.dial-knob::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    background: #FFFFFF;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 2px;
+}
+
+.dial-knob:active {
+    cursor: grabbing;
+}
+
+/* Animation pour le numéro sélectionné */
+@keyframes dialGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(30,64,175,0.7);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(30,64,175,0.9);
+    }
+}
+
+body.dark-mode .dial-number.selected {
+    animation: dialGlowDark 1.5s infinite;
+}
+
+@keyframes dialGlowDark {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(76,107,97,0.7);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(76,107,97,0.9);
+    }
+}
+
+.days-display {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #1E3A8A;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .days-display {
+    color: #4C6B61;
+    background: rgba(30,30,30,0.7);
+}
+
+/* Options */
+.options-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.options-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Bouton de soumission */
+.submit-button {
+    background: #1E3A8A;
+    color: #FFFFFF;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+body.dark-mode .submit-button {
+    background: #4C6B61;
+}
+
+.submit-button:hover {
+    background: #2B6CB0;
+    transform: translateY(-2px);
+}
+
+body.dark-mode .submit-button:hover {
+    background: #6B8A7A;
+}
+
+/* Conteneur des cartes météo */
+.weather-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.weather-card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+body.dark-mode .weather-card {
+    background: rgba(30,30,30,0.7);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.weather-date {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.weather-temp {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1E3A8A;
+}
+
+body.dark-mode .weather-temp {
+    color: #4C6B61;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.weather-icon {
+    font-size: 2.5rem;
+}
+
+.weather-desc {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.weather-details {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.detail-item span:first-child {
+    font-weight: 600;
+}
+
+/* Conteneur de la carte */
+.map-container {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .map-container {
+    background: rgba(30,30,30,0.7);
+}
+
+#map {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.map-info p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* États de chargement et d'erreur */
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 2rem;
+    color: #2D3436;
+}
+
+body.dark-mode .loading {
+    color: #E2E8F0;
+}
+
+.error-message {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 2rem;
+    color: #C53030;
+}
+
+body.dark-mode .error-message {
+    color: #FC8181;
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .weather-form {
+        padding: 1.5rem;
+    }
+
+    .weather-card {
+        padding: 1rem;
+    }
+
+    .weather-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dial-selector {
+        padding: 1rem;
+    }
+
+    .dial {
+        width: 160px;
+        height: 160px;
+    }
+
+    .dial-number {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .dial-number:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translate(0, -64px) rotate(0deg); }
+    .dial-number:nth-child(2) { transform: translate(-50%, -50%) rotate(51.43deg) translate(0, -64px) rotate(-51.43deg); }
+    .dial-number:nth-child(3) { transform: translate(-50%, -50%) rotate(102.86deg) translate(0, -64px) rotate(-102.86deg); }
+    .dial-number:nth-child(4) { transform: translate(-50%, -50%) rotate(154.29deg) translate(0, -64px) rotate(-154.29deg); }
+    .dial-number:nth-child(5) { transform: translate(-50%, -50%) rotate(205.72deg) translate(0, -64px) rotate(-205.72deg); }
+    .dial-number:nth-child(6) { transform: translate(-50%, -50%) rotate(257.15deg) translate(0, -64px) rotate(-257.15deg); }
+    .dial-number:nth-child(7) { transform: translate(-50%, -50%) rotate(308.58deg) translate(0, -64px) rotate(-308.58deg); }
+
+    .dial-knob {
+        width: 48px;
+        height: 48px;
+    }
+
+    .dial-knob::after {
+        width: 8px;
+        height: 16px;
+        top: 8px;
+    }
+
+    .days-display {
+        font-size: 1.4rem;
+        padding: 0.5rem 1rem;
+    }
+
+    #map {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+
+    .options-group {
+        flex-direction: column;
+    }
+
+    .dial {
+        width: 140px;
+        height: 140px;
+    }
+
+    .dial-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .dial-number:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translate(0, -56px) rotate(0deg); }
+    .dial-number:nth-child(2) { transform: translate(-50%, -50%) rotate(51.43deg) translate(0, -56px) rotate(-51.43deg); }
+    .dial-number:nth-child(3) { transform: translate(-50%, -50%) rotate(102.86deg) translate(0, -56px) rotate(-102.86deg); }
+    .dial-number:nth-child(4) { transform: translate(-50%, -50%) rotate(154.29deg) translate(0, -56px) rotate(-154.29deg); }
+    .dial-number:nth-child(5) { transform: translate(-50%, -50%) rotate(205.72deg) translate(0, -56px) rotate(-205.72deg); }
+    .dial-number:nth-child(6) { transform: translate(-50%, -50%) rotate(257.15deg) translate(0, -56px) rotate(-257.15deg); }
+    .dial-number:nth-child(7) { transform: translate(-50%, -50%) rotate(308.58deg) translate(0, -56px) rotate(-308.58deg); }
+
+    .dial-knob {
+        width: 40px;
+        height: 40px;
+    }
+
+    .dial-knob::after {
+        width: 6px;
+        height: 12px;
+        top: 6px;
+    }
+
+    .days-display {
+        font-size: 1.2rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    #map {
+        height: 200px;
+    }
+}s

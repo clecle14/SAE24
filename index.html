@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Weather V2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header class="header">
+        <h1>Instant Weather V2</h1>
+        <button class="dark-mode-toggle" aria-label="Activer le mode sombre">🌙</button>
+    </header>
+
+    <div class="container">
+        <form id="weatherForm" class="weather-form">
+            <div class="form-group">
+                <label for="cityInput">Ville :</label>
+                <input type="text" id="cityInput" placeholder="Entrez une ville" required>
+            </div>
+
+            <div class="form-group dial-selector" id="dialSelector" role="slider" aria-valuemin="1" aria-valuemax="7" aria-valuenow="3" tabindex="0">
+                <label>Nombre de jours :</label>
+                <div class="dial">
+                    <div class="dial-number" data-days="1">1</div>
+                    <div class="dial-number" data-days="2">2</div>
+                    <div class="dial-number selected" data-days="3">3</div>
+                    <div class="dial-number" data-days="4">4</div>
+                    <div class="dial-number" data-days="5">5</div>
+                    <div class="dial-number" data-days="6">6</div>
+                    <div class="dial-number" data-days="7">7</div>
+                    <div class="dial-knob"></div>
+                </div>
+                <div class="days-display">3 jours</div>
+            </div>
+
+            <div class="options-group">
+                <label><input type="checkbox" id="showLatitude"> Afficher la latitude</label>
+                <label><input type="checkbox" id="showLongitude"> Afficher la longitude</label>
+                <label><input type="checkbox" id="showRain"> Afficher la pluie</label>
+                <label><input type="checkbox" id="showWind"> Afficher le vent</label>
+                <label><input type="checkbox" id="showWindDirection"> Afficher la direction du vent</label>
+            </div>
+
+            <button type="submit" class="submit-button">Rechercher les prévisions</button>
+        </form>
+
+        <div id="mapContainer" class="map-container" style="display: none;">
+            <div id="map" style="height: 300px;"></div>
+            <div class="map-info">
+                <p><strong>Latitude :</strong> <span id="latitudeDisplay">-</span></p>
+                <p><strong>Longitude :</strong> <span id="longitudeDisplay">-</span></p>
+            </div>
+        </div>
+
+        <div id="weatherContainer" class="weather-container"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
